@@ -1,0 +1,29 @@
+// File name: DMux4Way.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * 4-way demultiplexor.  The 2-bit sel input selects the output to which 
+ * the in input will be channeled: 00 to a, 01 to b, 10 to c, 11 to d.
+ * The other outputs are set to 0.
+ */
+
+CHIP DMux4Way {
+
+    IN  in, sel[2];
+    OUT a, b, c, d;
+
+    PARTS:
+    Not(in=sel[0], out=nnsel0);
+    Not(in=sel[1], out=nnsel1);
+
+    And(a=nnsel0, b=nnsel1, out=sa);
+    And(a=sel[0], b=nnsel1, out=sb);
+    And(a=sel[1], b=nnsel0, out=sc);
+    And(a=sel[0], b=sel[1], out=sd);
+
+    And(a=in, b=sa, out=a);
+    And(a=in, b=sb, out=b);
+    And(a=in, b=sc, out=c);
+    And(a=in, b=sd, out=d);
+}
+

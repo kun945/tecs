@@ -1,0 +1,18 @@
+// File name: DMux.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/** 
+ * Demultiplexer. If sel = 0 then {a = in; b = 0} else {a = 0; b = in}
+ */
+ 
+CHIP DMux {
+
+    IN  in, sel;
+    OUT a, b;
+
+    PARTS:
+    Not(in=sel, out=nel);
+    And(a=in, b=nel, out=a);
+    And(a=in, b=sel, out=b);
+}
+

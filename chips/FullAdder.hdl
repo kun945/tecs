@@ -1,0 +1,20 @@
+// File name: FullAdder.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * Full adder. Computes sum, the least significant bit of 
+ * a + b + c, and carry, the most significant bit of a + b + c.
+ */
+
+CHIP FullAdder {
+
+    IN  a, b, c;
+    OUT sum,     // LSB of a + b + c
+        carry;   // MSB of a + b + c
+
+    PARTS:
+    HalfAdder(a=a, b=b, carry=hcarry1, sum=hsum1);
+    HalfAdder(a=hsum1, b=c, carry=hcarry2, sum=sum);
+    Or(a=hcarry1, b=hcarry2, out=carry);
+}
+

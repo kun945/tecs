@@ -1,0 +1,18 @@
+// File name: Inc16.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * 16-bit incrementer.  out = in + 1 (16-bit addition).
+ * Overflow is neither detected nor handled.
+ */
+
+CHIP Inc16 {
+
+    IN  in[16];
+    OUT out[16];
+
+    PARTS:
+    And16(a[0]=true, a[1..15]=false, b=true, out=nb);
+    Add16(a=in, b=nb, out=out);
+}
+

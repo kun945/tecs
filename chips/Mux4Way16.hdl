@@ -1,0 +1,39 @@
+// File name: Mux4Way16.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * 4-way 16-bit multiplexor.  
+ * out = a -- if sel=00
+ *       b -- if sel=01
+ *       c -- if sel=10
+ *       d -- if sel=11
+ */
+
+CHIP Mux4Way16 {
+     
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+
+    PARTS:
+    Not(in=sel[0], out=nsel0);
+    Not(in=sel[1], out=nsel1);
+    
+    And(a=nsel0, b=nsel1, out=sa);
+    And(a=nsel0, b=sel[1], out=sc);
+    And(a=sel[0], b=nsel1, out=sb);
+    And(a=sel[0], b=sel[1], out=sd);
+
+    And16Way(a=a, b=sa, out=oa);
+    And16Way(a=b, b=sb, out=ob);
+    And16Way(a=c, b=sc, out=oc);
+    And16Way(a=d, b=sd, out=od);
+    //And16(a=a, b[0..15]=sa, out=oa);
+    //And16(a=b, b[0..15]=sb, out=ob);
+    //And16(a=c, b[0..15]=sc, out=oc);
+    //And16(a=d, b[0..15]=sd, out=od);
+
+    Or16(a=oa, b=ob, out=tmp1);
+    Or16(a=oc, b=od, out=tmp2);
+    
+    Or16(a=tmp1, b=tmp2, out=out);
+}

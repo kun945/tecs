@@ -1,0 +1,17 @@
+// File name: Or.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * Or gate. out = a or b
+ */
+
+CHIP Or {
+
+    IN  a, b;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=na);
+    Not(in=b, out=nb);
+    Nand(a=na, b=nb, out=out);
+}

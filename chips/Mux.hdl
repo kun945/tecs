@@ -1,0 +1,18 @@
+// File name: Mux.hdl
+// Author : chenkun <ckmx@gmail.com>
+
+/** 
+ * Multiplexor.  If sel=0 then out = a else out = b.
+ */
+
+CHIP Mux {
+
+    IN  a, b, sel;
+    OUT out;
+
+    PARTS:
+    Not(in=sel, out=nsel);
+    And(a=a, b=nsel, out=ma);
+    And(a=b, b=sel, out=mb);
+    Or(a=ma, b=mb, out=out);
+}

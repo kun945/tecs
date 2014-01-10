@@ -1,0 +1,27 @@
+// File name: PC.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * 16-bit counter with load and reset controls.
+ *
+ * If reset(t-1) then out(t) = 0
+ *    else if load(t-1) then out(t) = in(t-1)
+ *         else if inc(t-1) then out(t) = out(t-1) + 1 (integer addition)
+ *              else out(t) = out(t-1)
+ */
+
+CHIP PC {
+
+    IN  in[16], load, inc, reset;
+    OUT out[16];
+
+    PARTS:
+    Inc16(in=outi, out=ini);
+    Mux16(a=ini, b=in, sel=load, out=inl);
+    Mux16(a=inl, b=false, sel=reset, out=ine);
+
+    Or(a=inc, b=load, out=li);
+    Or(a=reset, b=li, out=le);
+
+    Register(in=ine, load=le, out=outi, out=out);
+}

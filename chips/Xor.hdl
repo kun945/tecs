@@ -1,0 +1,20 @@
+// File name: Xor.hdl
+// Author : chenkun <ckmx945@gamil.com>
+
+/**
+ *  Exclusive-or gate.  out = a xor b.
+ */
+
+CHIP Xor {
+
+    IN  a, b;
+    OUT out;
+
+    PARTS:
+    Not(in=a, out=na);
+    Not(in=b, out=nb);
+    Nand(a=na, b=b, out=n1);
+    Nand(a=a, b=nb, out=n2);
+    And(a=n1, b=n2, out=tmp);
+    Not(in=tmp, out=out);
+}

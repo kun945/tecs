@@ -1,0 +1,15 @@
+// File name: And.hdl
+// Author : chenkun <ckmx945@gmail.com>
+
+/**
+ * And gate: out = a and b.
+ */
+
+CHIP And {
+    IN  a, b;
+    OUT out;
+
+    PARTS:
+    Nand(a=a, b=b, out=tmp);
+    Not(in=tmp, out=out);
+}
